@@ -1,0 +1,20 @@
+# Files listed here are NOT synced from the template.
+# See .template-docs/Help/Template-Sync.md for details.
+
+# User application code (review CHANGELOG.md for template /web updates)
+web/
+
+# User-specific configurations
+.env
+.env.local
+.env.*.local
+
+# Project-specific documentation
+documentation/
+
+# Generated files
+generated-docs/
+
+# IDE settings
+.vscode/
+.idea/

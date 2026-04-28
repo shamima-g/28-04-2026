@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$comment": "Source of truth for filename conventions of AI-generated documents. Read by .claude/hooks/enforce-generated-doc-names.js (PreToolUse enforcement) and .claude/scripts/validate-generated-doc-names.js (repo-wide audit). Human-readable mirror: .claude/shared/naming-conventions.md",
+  "version": 1,
+  "matching": {
+    "description": "Each convention is considered in scope for a file when its dirGlob matches the file's parent directory. A file is OK for a convention when its basename matches filenamePattern. A file is DRIFT for a convention when its basename matches badPattern but NOT filenamePattern. If no convention classes the file as OK or DRIFT, it is ungoverned and ignored."
+  },
+  "conventions": [
+    {
+      "id": "story-file",
+      "writtenBy": "feature-planner",
+      "dirGlob": "generated-docs/stories/epic-*/",
+      "filenamePattern": "^story-\\d+-[a-z][a-z0-9-]*\\.md$",
+      "badPattern": "^story-\\d+-\\d+-[a-z0-9-]+\\.md$",
+      "example": "story-3-role-aware-nav.md",
+      "counterexample": "story-1-3-role-aware-nav.md",
+      "rationale": "Epic number lives in the parent directory name. Putting it in the filename too makes /story-(\\d+)/ parsers capture the epic number instead of the story number — breaking workflow-helpers.js lines 147, 441, 923 and the dashboard's Test Coverage card."
+    },
+    {
+      "id": "epic-overview",
+      "writtenBy": "feature-planner",
+      "dirGlob": "generated-docs/stories/epic-*/",
+      "filenamePattern": "^_epic-overview\\.md$",
+      "badPattern": "^epic-overview\\.md$",
+      "example": "_epic-overview.md",
+      "counterexample": "epic-overview.md",
+      "rationale": "Leading underscore keeps the overview sorted above story files in directory listings. Exact filename; no per-epic suffix."
+    },
+    {
+      "id": "feature-overview",
+      "writtenBy": "feature-planner",
+      "dirGlob": "generated-docs/stories/",
+      "filenamePattern": "^_feature-overview\\.md$",
+      "badPattern": "^feature-overview\\.md$",
+      "example": "_feature-overview.md",
+      "counterexample": "feature-overview.md",
+      "rationale": "feature-planner.md:195 calls the exact path CRITICAL — getPhases(), dashboard, and traceability all read this exact filename and silently fall back to 'no phasing' if it's elsewhere."
+    },
+    {
+      "id": "requirements-traceability",
+      "writtenBy": "feature-planner",
+      "dirGlob": "generated-docs/stories/",
+      "filenamePattern": "^_requirements-traceability\\.(md|json)$",
+      "badPattern": "^requirements-traceability\\.(md|json)$",
+      "example": "_requirements-traceability.md",
+      "counterexample": "requirements-traceability.md",
+      "rationale": "Leading underscore keeps it sorted above the epic directories. Both .md (human) and .json (machine) flavours exist."
+    },
+    {
+      "id": "test-design",
+      "writtenBy": "test-designer",
+      "dirGlob": "generated-docs/test-design/epic-*/",
+      "filenamePattern": "^story-\\d+-[a-z][a-z0-9-]*-test-design\\.md$",
+      "badPattern": "^story-\\d+-\\d+-[a-z0-9-]+-test-design\\.md$",
+      "example": "story-3-role-aware-nav-test-design.md",
+      "counterexample": "story-1-3-role-aware-nav-test-design.md",
+      "rationale": "Same pattern as story files — no epic prefix. The spec-compliance-watchdog and test-generator discover this file via /story-M-/ glob expansion; an extra epic number in the filename breaks discovery."
+    },
+    {
+      "id": "test-handoff",
+      "writtenBy": "test-designer",
+      "dirGlob": "generated-docs/test-design/epic-*/",
+      "filenamePattern": "^story-\\d+-[a-z][a-z0-9-]*-test-handoff\\.md$",
+      "badPattern": "^story-\\d+-\\d+-[a-z0-9-]+-test-handoff\\.md$",
+      "example": "story-3-role-aware-nav-test-handoff.md",
+      "counterexample": "story-1-3-role-aware-nav-test-handoff.md",
+      "rationale": "code-reviewer.md:205 and :483 glob for story-M-*-test-handoff.md. Extra epic number breaks those globs."
+    },
+    {
+      "id": "verification-checklist",
+      "writtenBy": "code-reviewer",
+      "dirGlob": "generated-docs/qa/epic-*/",
+      "filenamePattern": "^story-\\d+-[a-z][a-z0-9-]*-verification-checklist\\.md$",
+      "badPattern": "^story-\\d+-\\d+-[a-z0-9-]+-verification-checklist\\.md$",
+      "example": "story-3-role-aware-nav-verification-checklist.md",
+      "counterexample": "story-1-3-role-aware-nav-verification-checklist.md",
+      "rationale": "orchestrator-rules.md:628 and continue.md:534 read this file verbatim as the single source of truth for re-verification prompts during QA fix cycles."
+    },
+    {
+      "id": "review-story",
+      "writtenBy": "code-reviewer",
+      "dirGlob": "generated-docs/reviews/",
+      "filenamePattern": "^epic-\\d+-story-\\d+-review\\.md$",
+      "badPattern": "^story-\\d+-review\\.md$",
+      "example": "epic-1-story-3-review.md",
+      "counterexample": "story-3-review.md",
+      "rationale": "Review markers live in a flat directory (no epic subfolders), so BOTH epic and story numbers must be in the filename. validate-phase-output.js:626 enforces this exact shape."
+    },
+    {
+      "id": "review-epic",
+      "writtenBy": "code-reviewer",
+      "dirGlob": "generated-docs/reviews/",
+      "filenamePattern": "^epic-\\d+-review\\.md$",
+      "badPattern": "^epic-review-\\d+\\.md$",
+      "example": "epic-1-review.md",
+      "counterexample": "epic-review-1.md",
+      "rationale": "Flat directory, epic-level marker. validate-phase-output.js:635 enforces this exact shape."
+    },
+    {
+      "id": "e2e-spec",
+      "writtenBy": "test-generator",
+      "dirGlob": "web/e2e/",
+      "filenamePattern": "^epic-\\d+-story-\\d+-[a-z][a-z0-9-]*\\.spec\\.ts$",
+      "badPattern": "^story-\\d+-[a-z0-9-]+\\.spec\\.ts$",
+      "example": "epic-1-story-3-role-aware-nav.spec.ts",
+      "counterexample": "story-3-role-aware-nav.spec.ts",
+      "rationale": "E2E specs live in a flat directory. orchestrator-rules.md:518 globs them as epic-<N>-story-<M>-*.spec.ts — both numbers are required for the E2E Verification step to resolve the combined target set."
+    }
+  ]
+}
