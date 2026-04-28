@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Task Manager API
+  version: 1.0.0
+paths:
+  /api/v2/tasks:
+    get:
+      summary: List tasks
+      responses:
+        '200':
+          description: List of tasks
+  /api/v2/tasks/{id}:
+    delete:
+      summary: Delete a task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Deleted

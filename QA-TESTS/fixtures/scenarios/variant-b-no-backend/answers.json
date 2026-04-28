@@ -1,0 +1,14 @@
+{
+  "scenarioName": "Variant B — No Backend API",
+  "sourcedFrom": "/TEST-INPUTS.md",
+  "overlay": {
+    "checklist": {
+      "apiSpec": "N/A"
+    }
+  },
+  "derivedManifestValues": {
+    "dataSource": "mock-only",
+    "apiSpecGenerate": false,
+    "mockHandlers": false
+  }
+}

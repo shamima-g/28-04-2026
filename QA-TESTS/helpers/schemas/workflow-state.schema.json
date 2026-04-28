@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stadium-software.internal/schemas/workflow-state.json",
+  "title": "Workflow State",
+  "description": "Shape of generated-docs/context/workflow-state.json produced by .claude/scripts/transition-phase.js",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["currentPhase"],
+  "properties": {
+    "featureName": {
+      "type": "string"
+    },
+    "currentPhase": {
+      "type": "string",
+      "enum": [
+        "INTAKE",
+        "SCOPE",
+        "DESIGN",
+        "STORIES",
+        "REALIGN",
+        "TEST-DESIGN",
+        "WRITE-TESTS",
+        "IMPLEMENT",
+        "QA",
+        "COMPLETE",
+        "PHASE-BOUNDARY",
+        "PENDING"
+      ]
+    },
+    "currentEpic": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "currentStory": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "phaseStatus": {
+      "type": "string",
+      "enum": ["ready", "in_progress", "paused", "complete"]
+    },
+    "featureComplete": {
+      "type": "boolean"
+    },
+    "totalEpics": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "epics": {
+      "type": "object"
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pausedAt": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "intakeRoute": {
+      "type": "string",
+      "enum": ["docs", "prototype", "qa"]
+    }
+  }
+}

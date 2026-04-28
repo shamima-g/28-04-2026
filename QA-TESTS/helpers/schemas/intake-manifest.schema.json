@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stadium-software.internal/schemas/intake-manifest.json",
+  "title": "Intake Manifest",
+  "description": "Shape of generated-docs/context/intake-manifest.json produced by the intake-agent.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["context", "artifacts"],
+  "properties": {
+    "featureName": { "type": "string" },
+    "context": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "dataSource": {
+          "type": "string",
+          "enum": ["existing-api", "new-api", "api-in-development", "mock-only"]
+        },
+        "specCompleteness": {
+          "type": "string",
+          "enum": ["complete", "partial", "none"]
+        },
+        "authMethod": {
+          "type": "string",
+          "enum": ["bff", "frontend-only", "custom"]
+        },
+        "bffEndpoints": {
+          "type": "object",
+          "properties": {
+            "login": { "type": "string" },
+            "userinfo": { "type": "string" },
+            "logout": { "type": "string" }
+          }
+        },
+        "complianceDomains": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "complianceNotes": { "type": ["string", "null"] },
+        "projectDescription": { "type": ["string", "null"] },
+        "prototypeFormat": {
+          "type": ["string", "null"],
+          "enum": ["v1", "v2", null]
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "apiSpec": { "$ref": "#/definitions/artifactEntry" },
+        "designTokensCss": { "$ref": "#/definitions/artifactEntry" },
+        "designTokensMd": { "$ref": "#/definitions/artifactEntry" },
+        "wireframes": { "$ref": "#/definitions/artifactEntry" }
+      }
+    }
+  },
+  "definitions": {
+    "artifactEntry": {
+      "type": "object",
+      "required": ["generate"],
+      "additionalProperties": true,
+      "properties": {
+        "generate": { "type": "boolean" },
+        "userProvided": {
+          "type": ["string", "array", "null"],
+          "items": { "type": "string" }
+        },
+        "mockHandlers": { "type": "boolean" }
+      }
+    }
+  }
+}

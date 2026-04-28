@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+.vitest-cache/
+*.tsbuildinfo
+# Tarball fixtures are generated from real runs — ignore unless explicitly committed
+fixtures/checkpoints/*.tar
+# Golden logs may be large; still committed — do not ignore
+!fixtures/golden-logs/*.md

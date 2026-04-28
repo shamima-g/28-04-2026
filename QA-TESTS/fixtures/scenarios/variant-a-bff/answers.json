@@ -1,0 +1,22 @@
+{
+  "scenarioName": "Variant A — BFF Authentication",
+  "sourcedFrom": "/TEST-INPUTS.md",
+  "overlay": {
+    "checklist": {
+      "auth": "bff"
+    },
+    "bffEndpoints": {
+      "login": "/api/auth/login",
+      "userinfo": "/api/auth/userinfo",
+      "logout": "/api/auth/logout"
+    }
+  },
+  "derivedManifestValues": {
+    "authMethod": "bff",
+    "bffEndpoints": {
+      "login": "/api/auth/login",
+      "userinfo": "/api/auth/userinfo",
+      "logout": "/api/auth/logout"
+    }
+  }
+}

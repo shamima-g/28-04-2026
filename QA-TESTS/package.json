@@ -1,0 +1,28 @@
+{
+  "name": "qa",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Test suite for the Claude Code workflow template (scripts, hooks, schemas, agents, commands). Three-tier structure per /TEST-STRATEGY.md.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:tier1": "vitest run tier-1-unit",
+    "test:tier2": "vitest run tier-2-log-replay",
+    "test:pester": "pwsh -NoProfile -Command \"Import-Module Pester -MinimumVersion 5.0 -Force; Invoke-Pester tier-1-unit/hooks/powershell -Output Detailed\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "fast-check": "^3.23.0",
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

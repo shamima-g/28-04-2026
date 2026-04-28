@@ -1,0 +1,35 @@
+{
+  "scenarioName": "Team Task Manager",
+  "sourcedFrom": "/TEST-INPUTS.md",
+  "elevatorPitch": "A task management tool for small teams. Team members can view tasks assigned to them and mark them complete. Admins can create tasks, assign them to any team member, edit due dates, and delete tasks. Each task has a title, description, due date, an assigned person, and a status of pending or complete. Everyone must be signed in — no public access.",
+  "routing": "qa",
+  "checklist": {
+    "roles": "Two roles: Admin (create/assign/edit/delete/view all) and Member (view/complete own tasks only)",
+    "styling": "Clean professional. Primary #2563EB, background white, light grey #F3F4F6 for tables, sans-serif, compact, light mode only",
+    "apiSpec": "No",
+    "backendReady": "No — still in development",
+    "auth": "frontend-only",
+    "compliance": "None"
+  },
+  "derivedManifestValues": {
+    "dataSource": "api-in-development",
+    "specCompleteness": "none",
+    "authMethod": "frontend-only",
+    "complianceDomains": [],
+    "mockHandlers": true
+  },
+  "expectedEpics": [
+    { "num": 1, "name": "Task Browsing", "slug": "browsing" },
+    { "num": 2, "name": "Task Actions", "slug": "actions" }
+  ],
+  "expectedStories": {
+    "epic-1": [
+      { "num": 1, "name": "View task list", "role": "Admin / Member" },
+      { "num": 2, "name": "Empty state", "role": "Member" }
+    ],
+    "epic-2": [
+      { "num": 1, "name": "Create a task", "role": "Admin" },
+      { "num": 2, "name": "Delete a task", "role": "Admin" }
+    ]
+  }
+}
